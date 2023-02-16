@@ -31,9 +31,10 @@ public class AppInitializer {
                 }
                 break;
             case 3:
-                break;
+                System.out.println("Good bye..!");
+                return;
             default:
-                //exit program
+                System.out.println("Idiot, Wrong input..!\uD83D\uDE14");
         }
     }
 
