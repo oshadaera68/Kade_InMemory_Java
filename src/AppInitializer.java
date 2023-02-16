@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class AppInitializer {
@@ -6,6 +8,7 @@ public class AppInitializer {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        boolean exitState = true;
         // program initialization
         String[] initializePageQuestions =
                 {
@@ -14,32 +17,42 @@ public class AppInitializer {
                         "3. Do you want to exit the page?"
                 };
 
-        for (String question : initializePageQuestions) {
-            System.out.println(question);
-        }
+        while (exitState) {
+            for (String question : initializePageQuestions) {
+                System.out.println(question);
+            }
 
-        int userInput = input.nextInt();
-        switch (userInput) {
-            case 1:
-                if (login()) {
-                    openDashboard();
-                }
-                break;
-            case 2:
-                if (register()) {
-                    openDashboard();
-                }
-                break;
-            case 3:
-                System.out.println("Good bye..!");
-                return;
-            default:
-                System.out.println("Idiot, Wrong input..!\uD83D\uDE14");
+            int userInput = input.nextInt();
+            switch (userInput) {
+                case 1:
+                    // just for our testing process
+                    users[0][0] = "oshada@gmail.com";
+                    users[0][1] = "1234";
+                    if (login()) {
+                        printUi("Dashboard");
+                        openDashboard();
+                    }
+                    printUi("User Application");
+                    break;
+                case 2:
+                    if (register()) {
+                        printUi("Dashboard");
+                        openDashboard();
+                    }
+                    break;
+                case 3:
+                    System.out.println("Good bye..!");
+                    return;
+                default:
+                    System.out.println("Idiot, Wrong input..!\uD83D\uDE14");
+                    return;
+            }
         }
     }
 
     // login
     public static boolean login() {
+        printUi("Log in");
         Scanner input = new Scanner(System.in);
         System.out.println("Insert Your Email:");
         String email = input.nextLine();
@@ -57,7 +70,7 @@ public class AppInitializer {
                 }
             }
         }
-        System.out.println("404 not found");
+        System.out.println("404 email not found");
         return false;
     }
 
@@ -88,8 +101,18 @@ public class AppInitializer {
         return false;
     }
 
+    // dashboard
     public static void openDashboard() {
         System.out.println("inside Dashboard");
     }
 
+    public static void printUi(String position) {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String simpleDate = dateFormat.format(date);
+        String simpleTime = timeFormat.format(date);
+        System.out.println("===========" + simpleDate + "===========" + simpleTime + "==>" + position);
+//        System.out.println("======================@System===========================================");
+    }
 }
